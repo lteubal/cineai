@@ -8,9 +8,10 @@ export const useTheme = () => {
       const stored = localStorage.getItem('theme') as Theme;
       if (stored) return stored;
       
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      // Default to dark mode for new users
+      return 'dark';
     }
-    return 'light';
+    return 'dark';
   });
 
   useEffect(() => {

@@ -81,6 +81,22 @@ export const MovieModal: React.FC<MovieModalProps> = ({ movie, isOpen, onClose, 
     }).format(amount);
   };
 
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const target = e.target as HTMLImageElement;
+    // Use a default movie poster placeholder
+    target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9Ijc1MCIgdmlld0JveD0iMCAwIDUwMCA3NTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNzUwIiBmaWxsPSIjMUUyOTNCIi8+CjxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjQwMCIgaGVpZ2h0PSI2NTAiIGZpbGw9IiMzNzQxNTEiLz4KPHN2ZyB4PSIyNTAiIHk9IjMwMCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE4IDRIMjBWMjBIMThWNFpNMTYgNlYxOEg2VjZIMTZaIiBmaWxsPSIjN0MzQTA1Ii8+CjxwYXRoIGQ9Ik0xNCAxMkgxNlYxNEgxNFYxMlpNMTAgMTJIMTJWMTRIMTBWMjJaIiBmaWxsPSIjRkY5ODAwIi8+Cjwvc3ZnPgo8dGV4dCB4PSIyNTAiIHk9IjQ1MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSIjRkZGRkZGIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5ObyBQb3N0ZXI8L3RleHQ+Cjx0ZXh0IHg9IjI1MCIgeT0iNDgwIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5Q0EzQjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkF2YWlsYWJsZTwvdGV4dD4KPC9zdmc+';
+  };
+
+  const handleBackdropError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const target = e.target as HTMLImageElement;
+    // Use a dark gradient as backdrop fallback
+    target.style.display = 'none';
+    const parent = target.parentElement;
+    if (parent) {
+      parent.style.background = 'linear-gradient(135deg, #1e293b 0%, #374151 100%)';
+    }
+  };
+
   if (!movie) return null;
 
     return (
@@ -116,6 +132,7 @@ export const MovieModal: React.FC<MovieModalProps> = ({ movie, isOpen, onClose, 
                       src={tmdbService.getImageUrl(movie.backdrop_path, 'w1280')}
                       alt=""
                       className="w-full h-full object-cover"
+                      onError={handleBackdropError}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-gray-900 via-white/80 dark:via-gray-900/80 to-transparent" />
                   </div>
@@ -136,6 +153,7 @@ export const MovieModal: React.FC<MovieModalProps> = ({ movie, isOpen, onClose, 
                         src={tmdbService.getImageUrl(movie.poster_path, 'w500')}
                         alt={movie.title}
                         className="w-56 h-84 object-cover rounded-2xl shadow-2xl"
+                        onError={handleImageError}
                       />
 
                       <div className="flex-1 space-y-4">
@@ -157,16 +175,16 @@ export const MovieModal: React.FC<MovieModalProps> = ({ movie, isOpen, onClose, 
                           <div className="flex items-center space-x-2">
                             <Star className="w-5 h-5 text-yellow-400 fill-current" />
                             <span className="text-lg font-semibold text-gray-900 dark:text-white">
-                              {movie.vote_average.toFixed(1)}
+                              {movie.vote_average ? movie.vote_average.toFixed(1) : '—'}
                             </span>
                             <span className="text-gray-600 dark:text-gray-400">
-                              ({movie.vote_count} votes)
+                              ({movie.vote_count ? `${movie.vote_count} votes` : 'No votes'})
                             </span>
                           </div>
 
                           <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
                             <Calendar className="w-5 h-5" />
-                            <span>{new Date(movie.release_date).getFullYear()}</span>
+                            <span>{movie.release_date ? new Date(movie.release_date).getFullYear() : '—'}</span>
                           </div>
 
                           {movieDetails?.runtime && (
@@ -362,12 +380,13 @@ export const MovieModal: React.FC<MovieModalProps> = ({ movie, isOpen, onClose, 
                                 <div
                                   key={recommendedMovie.id}
                                   onClick={() => onSimilarMovieClick?.(recommendedMovie)}
-                                  className="group cursor-pointer bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300"
+                                  className="group cursor-pointer bg-gray-50 dark:bg-black/80 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300"
                                 >
                                   <img
                                     src={tmdbService.getImageUrl(recommendedMovie.poster_path, 'w300')}
                                     alt={recommendedMovie.title}
                                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                                    onError={handleImageError}
                                   />
                                   <div className="p-3">
                                     <h4 className="font-medium text-gray-900 dark:text-white text-sm line-clamp-2 mb-1">
@@ -375,9 +394,9 @@ export const MovieModal: React.FC<MovieModalProps> = ({ movie, isOpen, onClose, 
                                     </h4>
                                     <div className="flex items-center space-x-2 text-xs text-gray-600 dark:text-gray-400">
                                       <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                                      <span>{recommendedMovie.vote_average.toFixed(1)}</span>
+                                      <span>{recommendedMovie.vote_average ? recommendedMovie.vote_average.toFixed(1) : '—'}</span>
                                       <span>•</span>
-                                      <span>{new Date(recommendedMovie.release_date).getFullYear()}</span>
+                                                                              <span>{recommendedMovie.release_date ? new Date(recommendedMovie.release_date).getFullYear() : '—'}</span>
                                     </div>
                                   </div>
                                 </div>
@@ -403,12 +422,13 @@ export const MovieModal: React.FC<MovieModalProps> = ({ movie, isOpen, onClose, 
                         <div
                           key={similarMovie.id}
                           onClick={() => onSimilarMovieClick?.(similarMovie)}
-                          className="group cursor-pointer bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300"
+                          className="group cursor-pointer bg-gray-50 dark:bg-black/80 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300"
                         >
                           <img
                             src={tmdbService.getImageUrl(similarMovie.poster_path, 'w300')}
                             alt={similarMovie.title}
                             className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                            onError={handleImageError}
                           />
                           <div className="p-3">
                             <h4 className="font-medium text-gray-900 dark:text-white text-sm line-clamp-2 mb-1">
@@ -416,9 +436,9 @@ export const MovieModal: React.FC<MovieModalProps> = ({ movie, isOpen, onClose, 
                             </h4>
                             <div className="flex items-center space-x-2 text-xs text-gray-600 dark:text-gray-400">
                               <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                              <span>{similarMovie.vote_average.toFixed(1)}</span>
+                              <span>{similarMovie.vote_average ? similarMovie.vote_average.toFixed(1) : '—'}</span>
                               <span>•</span>
-                              <span>{new Date(similarMovie.release_date).getFullYear()}</span>
+                                                              <span>{similarMovie.release_date ? new Date(similarMovie.release_date).getFullYear() : '—'}</span>
                             </div>
                           </div>
                         </div>

@@ -13,7 +13,8 @@ interface MovieCardProps {
 export const MovieCard: React.FC<MovieCardProps> = ({ movie, onClick, index = 0 }) => {
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const target = e.target as HTMLImageElement;
-    target.src = 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=500&h=750&fit=crop';
+    // Use a default movie poster placeholder
+    target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9Ijc1MCIgdmlld0JveD0iMCAwIDUwMCA3NTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNzUwIiBmaWxsPSIjMUUyOTNCIi8+CjxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjQwMCIgaGVpZ2h0PSI2NTAiIGZpbGw9IiMzNzQxNTEiLz4KPHN2ZyB4PSIyNTAiIHk9IjMwMCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE4IDRIMjBWMjBIMThWNFpNMTYgNlYxOEg2VjZIMTZaIiBmaWxsPSIjN0MzQTA1Ii8+CjxwYXRoIGQ9Ik0xNCAxMkgxNlYxNEgxNFYxMlpNMTAgMTJIMTJWMTRIMTBWMjJaIiBmaWxsPSIjRkY5ODAwIi8+Cjwvc3ZnPgo8dGV4dCB4PSIyNTAiIHk9IjQ1MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSIjRkZGRkZGIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5ObyBQb3N0ZXI8L3RleHQ+Cjx0ZXh0IHg9IjI1MCIgeT0iNDgwIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5Q0EzQjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkF2YWlsYWJsZTwvdGV4dD4KPC9zdmc+';
   };
 
   return (
@@ -42,7 +43,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, onClick, index = 0 
         <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm rounded-full px-3 py-1 flex items-center space-x-1">
           <Star className="w-4 h-4 text-yellow-400 fill-current" />
           <span className="text-white text-sm font-medium">
-            {movie.vote_average.toFixed(1)}
+            {movie.vote_average ? movie.vote_average.toFixed(1) : '—'}
           </span>
         </div>
 
@@ -63,7 +64,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, onClick, index = 0 
         <div className="flex items-center text-gray-600 dark:text-gray-400 mb-3">
           <Calendar className="w-4 h-4 mr-2" />
           <span className="text-sm">
-            {movie.release_date ? new Date(movie.release_date).getFullYear() : 'TBA'}
+            {movie.release_date ? new Date(movie.release_date).getFullYear() : '—'}
           </span>
         </div>
 
@@ -75,7 +76,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, onClick, index = 0 
           <div className="flex items-center space-x-2">
             <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-1">
               <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
-                {movie.vote_count} votes
+                {movie.vote_count ? `${movie.vote_count} votes` : 'No votes'}
               </span>
             </div>
           </div>
