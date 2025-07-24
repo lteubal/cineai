@@ -8,6 +8,7 @@ import { ThemeToggle } from './components/ThemeToggle';
 import { LoadingSkeleton, HeroSkeleton } from './components/LoadingSkeleton';
 import { useTheme } from './hooks/useTheme';
 import { tmdbService } from './services/tmdb';
+import { intelligentSearchService } from './services/intelligentSearch';
 import { Movie } from './types/movie';
 
 function App() {
@@ -51,15 +52,26 @@ function App() {
       setError(null);
       setSearchQuery(query);
       
-      const response = await tmdbService.searchMovies(query);
-      setMovies(response.results || []);
+      const movies = await intelligentSearchService.search(query);
+      setMovies(movies);
       
-      if ((response.results || []).length === 0) {
-        setError(`No movies found for "${query}". Try a different search term.`);
+      if (movies.length === 0) {
+        // Check if it's a thematic search
+        if (intelligentSearchService.isThematicSearch(query)) {
+          setError(`We couldn't find movies matching "${query}". Try searching for a specific movie title or a different theme like "action movies" or "romantic comedies".`);
+        } else {
+          setError(`No movies found for "${query}". Try searching for a different movie title or check your spelling.`);
+        }
       }
     } catch (err) {
-      setError('Failed to search movies. Please try again.');
       console.error('Error searching movies:', err);
+      
+      // Provide more specific error messages
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Something went wrong with the search. Please try again in a moment.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -220,22 +232,72 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               className="flex items-center justify-center py-16"
             >
-              <div className="text-center space-y-4">
-                <AlertCircle className="w-16 h-16 text-red-500 mx-auto" />
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Oops! Something went wrong
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 max-w-md">
-                  {error}
-                </p>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={searchQuery ? () => handleSearch(searchQuery) : loadTrendingMovies}
-                  className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-medium transition-colors"
-                >
-                  Try Again
-                </motion.button>
+              <div className="text-center space-y-6">
+                <div className="space-y-2">
+                  <AlertCircle className="w-12 h-12 text-orange-500 mx-auto" />
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    No movies found
+                  </h3>
+                </div>
+                <div className="space-y-4">
+                  <p className="text-gray-600 dark:text-gray-400 max-w-lg">
+                    {error}
+                  </p>
+                  
+                  {/* Search suggestions */}
+                  <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 max-w-md mx-auto">
+                    <h4 className="font-medium text-gray-900 dark:text-white mb-2">
+                      Try these searches instead:
+                    </h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          onClick={() => handleSearch('Inception')}
+                          className="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800/50 transition-colors"
+                        >
+                          Inception
+                        </button>
+                        <button
+                          onClick={() => handleSearch('The Matrix')}
+                          className="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800/50 transition-colors"
+                        >
+                          The Matrix
+                        </button>
+                        <button
+                          onClick={() => handleSearch('action movies')}
+                          className="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800/50 transition-colors"
+                        >
+                          action movies
+                        </button>
+                        <button
+                          onClick={() => handleSearch('romantic comedies')}
+                          className="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800/50 transition-colors"
+                        >
+                          romantic comedies
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex gap-3 justify-center">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={searchQuery ? () => handleSearch(searchQuery) : loadTrendingMovies}
+                    className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-medium transition-colors"
+                  >
+                    Try Again
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={clearSearch}
+                    className="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-medium transition-colors"
+                  >
+                    Back to Trending
+                  </motion.button>
+                </div>
               </div>
             </motion.div>
           )}

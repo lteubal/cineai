@@ -83,4 +83,53 @@ export const openaiService = {
       throw new Error('Failed to get AI analysis');
     }
   },
+
+  getMovieRecommendationsByTheme: async (theme: string, customPrompt?: string): Promise<{ text: string; movieTitles: string[] }> => {
+    const prompt = customPrompt || `Find 10 movies that match this theme or concept: "${theme}". 
+    
+    Consider movies that:
+    - Match the theme, concept, or emotion described
+    - Are well-known and accessible
+    - Have good ratings and reviews
+    - Represent different genres and time periods
+    
+    Return only the movie titles separated by commas, no explanations or formatting.
+    Example format: "Inception, Eternal Sunshine of the Spotless Mind, The Matrix, Blade Runner, Her"
+    
+    IMPORTANT: At the end of your response, add a line starting with "MOVIE_TITLES:" followed by just the 10 movie titles separated by commas, without any formatting or explanations.`;
+
+    try {
+      const response = await openaiApi.post('/chat/completions', {
+        model: 'gpt-4o-mini',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a knowledgeable movie recommendation expert. Provide accurate movie suggestions based on themes and concepts.'
+          },
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
+        max_tokens: 500,
+        temperature: 0.7,
+      });
+
+      const content = response.data.choices[0].message.content;
+      
+      // Extract movie titles from the response
+      const movieTitlesMatch = content.match(/MOVIE_TITLES:\s*(.+)$/m);
+      const movieTitles = movieTitlesMatch 
+        ? movieTitlesMatch[1].split(',').map((title: string) => title.trim())
+        : [];
+      
+      // Remove the MOVIE_TITLES line from the text
+      const text = content.replace(/\nMOVIE_TITLES:.*$/m, '').trim();
+
+      return { text, movieTitles };
+    } catch (error) {
+      console.error('OpenAI API Error:', error);
+      throw new Error('Failed to get thematic movie recommendations');
+    }
+  },
 };

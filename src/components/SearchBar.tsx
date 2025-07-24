@@ -63,7 +63,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => 
               onChange={(e) => setQuery(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
-              placeholder="Search for movies... (Press '/' to focus)"
+              placeholder="Search movies, themes, or concepts... (Press '/' to focus)"
               className="flex-1 ml-4 bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 text-lg focus:outline-none"
               disabled={isLoading}
             />
@@ -101,7 +101,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => 
                 exit={{ opacity: 0, y: -10 }}
                 className="px-6 pb-4 text-sm text-gray-500 dark:text-gray-400"
               >
-                Try searching for "Inception", "Marvel", or your favorite movie...
+                <div className="space-y-2">
+                  <div>Try movie titles: "Inception", "Marvel", "The Matrix"</div>
+                  <div>Or themes: "movies that make you think", "love stories", "time travel"</div>
+                  <div>Or concepts: "mind-bending", "emotional", "adventure"</div>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
