@@ -187,7 +187,7 @@ export const MovieModal: React.FC<MovieModalProps> = ({ movie, isOpen, onClose, 
                             {movieDetails.genres.map((genre) => (
                               <span
                                 key={genre.id}
-                                className="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium"
+                                className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-200 rounded-full text-sm font-medium"
                               >
                                 {genre.name}
                               </span>
@@ -221,7 +221,7 @@ export const MovieModal: React.FC<MovieModalProps> = ({ movie, isOpen, onClose, 
                         onClick={() => setActiveTab(key as any)}
                         className={`flex items-center space-x-2 py-4 border-b-2 font-medium text-sm transition-colors ${
                           activeTab === key
-                            ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                            ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400'
                             : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
                         }`}
                       >
@@ -242,7 +242,7 @@ export const MovieModal: React.FC<MovieModalProps> = ({ movie, isOpen, onClose, 
                     >
                       {isLoadingDetails ? (
                         <div className="flex items-center justify-center py-12">
-                          <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+                          <Loader2 className="w-8 h-8 animate-spin text-yellow-500" />
                         </div>
                       ) : movieDetails ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -327,7 +327,7 @@ export const MovieModal: React.FC<MovieModalProps> = ({ movie, isOpen, onClose, 
                       {isLoadingAI ? (
                         <div className="flex items-center justify-center py-12">
                           <div className="text-center">
-                            <Loader2 className="w-8 h-8 animate-spin text-blue-500 mx-auto mb-4" />
+                            <Loader2 className="w-8 h-8 animate-spin text-yellow-500 mx-auto mb-4" />
                             <p className="text-gray-600 dark:text-gray-400">Getting AI recommendations...</p>
                           </div>
                         </div>

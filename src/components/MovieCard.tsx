@@ -23,7 +23,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, onClick, index = 0 
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ y: -10 }}
       onClick={onClick}
-      className="group cursor-pointer bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50"
+      className="group cursor-pointer bg-white/80 dark:bg-black/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200/50 dark:border-gray-800/50"
     >
       <div className="relative overflow-hidden">
         <motion.img
@@ -48,7 +48,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, onClick, index = 0 
 
         {/* Popularity indicator */}
         {movie.popularity > 100 && (
-          <div className="absolute top-3 left-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full px-3 py-1 flex items-center space-x-1">
+          <div className="absolute top-3 left-3 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full px-3 py-1 flex items-center space-x-1">
             <TrendingUp className="w-4 h-4 text-white" />
             <span className="text-white text-xs font-medium">Popular</span>
           </div>
@@ -56,7 +56,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, onClick, index = 0 
       </div>
 
       <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors">
           {movie.title}
         </h3>
         
@@ -73,7 +73,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, onClick, index = 0 
 
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-1">
+            <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-1">
               <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
                 {movie.vote_count} votes
               </span>
@@ -82,7 +82,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, onClick, index = 0 
           
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-blue-600 dark:text-blue-400 font-medium text-sm group-hover:underline"
+            className="text-yellow-600 dark:text-yellow-400 font-medium text-sm group-hover:underline"
           >
             View Details →
           </motion.div>

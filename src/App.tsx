@@ -92,11 +92,11 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen transition-colors duration-300 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900">
+    <div className="min-h-screen transition-colors duration-300 bg-gradient-to-br from-yellow-50 via-orange-50 to-amber-50 dark:from-black dark:via-black dark:to-black">
       {/* Background Effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
       {/* Header */}
@@ -107,11 +107,9 @@ function App() {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-3"
           >
-            <div className="p-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-lg">
-              <Film className="w-8 h-8 text-white" />
-            </div>
+            <img src="/cineai.png" alt="CineAI Logo" className="w-10 h-10" />
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
                 CineAI
               </h1>
               <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -143,7 +141,7 @@ function App() {
                 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white"
               >
                 Discover Your Next
-                <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
                   Favorite Movie
                 </span>
               </motion.h2>
@@ -173,16 +171,16 @@ function App() {
               transition={{ delay: 0.8 }}
               className="flex justify-center space-x-4"
             >
-              <div className="flex items-center space-x-2 px-4 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-200/50 dark:border-gray-700/50">
-                <Sparkles className="w-4 h-4 text-blue-500" />
+              <div className="flex items-center space-x-2 px-4 py-2 bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-full border border-gray-200/50 dark:border-gray-800/50">
+                <Sparkles className="w-4 h-4 text-yellow-500" />
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">AI Recommendations</span>
               </div>
-              <div className="flex items-center space-x-2 px-4 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-200/50 dark:border-gray-700/50">
-                <TrendingUp className="w-4 h-4 text-purple-500" />
+              <div className="flex items-center space-x-2 px-4 py-2 bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-full border border-gray-200/50 dark:border-gray-800/50">
+                <TrendingUp className="w-4 h-4 text-orange-500" />
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Trending Movies</span>
               </div>
-              <div className="flex items-center space-x-2 px-4 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-200/50 dark:border-gray-700/50">
-                <Film className="w-4 h-4 text-green-500" />
+              <div className="flex items-center space-x-2 px-4 py-2 bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-full border border-gray-200/50 dark:border-gray-800/50">
+                <Film className="w-4 h-4 text-amber-500" />
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Detailed Info</span>
               </div>
             </motion.div>
@@ -216,7 +214,7 @@ function App() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={clearSearch}
-                    className="px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-xl transition-colors text-gray-700 dark:text-gray-300"
+                    className="px-4 py-2 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 rounded-xl transition-colors text-gray-700 dark:text-gray-300"
                   >
                     Clear Search
                   </motion.button>
@@ -234,7 +232,7 @@ function App() {
             >
               <div className="text-center space-y-6">
                 <div className="space-y-2">
-                  <AlertCircle className="w-12 h-12 text-orange-500 mx-auto" />
+                  <AlertCircle className="w-12 h-12 text-yellow-500 mx-auto" />
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                     No movies found
                   </h3>
@@ -245,7 +243,7 @@ function App() {
                   </p>
                   
                   {/* Search suggestions */}
-                  <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 max-w-md mx-auto">
+                  <div className="bg-gray-50 dark:bg-black/50 rounded-xl p-4 max-w-md mx-auto">
                     <h4 className="font-medium text-gray-900 dark:text-white mb-2">
                       Try these searches instead:
                     </h4>
@@ -253,25 +251,25 @@ function App() {
                       <div className="flex flex-wrap gap-2">
                         <button
                           onClick={() => handleSearch('Inception')}
-                          className="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800/50 transition-colors"
+                          className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300 rounded-full hover:bg-yellow-200 dark:hover:bg-yellow-800/50 transition-colors"
                         >
                           Inception
                         </button>
                         <button
                           onClick={() => handleSearch('The Matrix')}
-                          className="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800/50 transition-colors"
+                          className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300 rounded-full hover:bg-yellow-200 dark:hover:bg-yellow-800/50 transition-colors"
                         >
                           The Matrix
                         </button>
                         <button
                           onClick={() => handleSearch('action movies')}
-                          className="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800/50 transition-colors"
+                          className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300 rounded-full hover:bg-yellow-200 dark:hover:bg-yellow-800/50 transition-colors"
                         >
                           action movies
                         </button>
                         <button
                           onClick={() => handleSearch('romantic comedies')}
-                          className="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800/50 transition-colors"
+                          className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300 rounded-full hover:bg-yellow-200 dark:hover:bg-yellow-800/50 transition-colors"
                         >
                           romantic comedies
                         </button>
@@ -285,7 +283,7 @@ function App() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={searchQuery ? () => handleSearch(searchQuery) : loadTrendingMovies}
-                    className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-medium transition-colors"
+                    className="px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white rounded-xl font-medium transition-colors"
                   >
                     Try Again
                   </motion.button>
@@ -293,7 +291,7 @@ function App() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={clearSearch}
-                    className="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-medium transition-colors"
+                    className="px-6 py-3 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-medium transition-colors"
                   >
                     Back to Trending
                   </motion.button>

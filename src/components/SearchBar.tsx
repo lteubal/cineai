@@ -47,12 +47,12 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => 
               : '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
           }}
           transition={{ duration: 0.2 }}
-          className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl border border-gray-200/50 dark:border-gray-700/50 overflow-hidden"
+          className="relative bg-white/90 dark:bg-black/90 backdrop-blur-sm rounded-2xl border border-gray-200/50 dark:border-gray-800/50 overflow-hidden"
         >
           <div className="flex items-center px-6 py-4">
             <Search className={`w-6 h-6 transition-colors duration-200 ${
               isFocused 
-                ? 'text-blue-500 dark:text-blue-400' 
+                ? 'text-yellow-500 dark:text-yellow-400' 
                 : 'text-gray-400 dark:text-gray-500'
             }`} />
             
@@ -78,7 +78,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => 
                   whileTap={{ scale: 0.9 }}
                   type="button"
                   onClick={handleClear}
-                  className="ml-3 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  className="ml-3 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 >
                   <X className="w-5 h-5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" />
                 </motion.button>
@@ -87,7 +87,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => 
 
             {isLoading && (
               <div className="ml-3">
-                <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin" />
               </div>
             )}
           </div>
